@@ -15,11 +15,14 @@
             };
                 
             $(function() {
-                // run the currently selected effect
+                // run the currently selected effect                  
                 function runEffect() {
                     options = {};
                     // run the effect
-                    $( "#effect" ).show( 'clip', options, 500 );
+                    //$( "#effect" ).show( 'blind', options, 500 );
+                    $("#toggler").append($("#effect"));
+                    $("#effect").toggle();
+                    $("#toggler").slideToggle("slow");
                 };
         
                 // set effect from select menu value
@@ -27,22 +30,40 @@
                     var rez = 0;
                     for (var i=1; i<=16; i++) {
                         if (i%2 != 0) {
-                            alert("impar");
                             rez += $('#slider' + i).slider("option", "value");
                             rez += 8;
                         }
                         else {
-                            alert("par");
                             rez -= $('#slider' + i).slider("option", "value");
                         }
                     }
                     
                     $( '#final' ).val( rez );
+                    
+                    var str1="De obicei, oamenii care sunt extrem de toleranti la ambiguitate \
+                    se simt atrasi de organizatii caracterizate de o continua si rapida dezvoltare, de responsabilitate.\
+                    Sunt persoane flexibile ce se pot adapta cu usurinta schimbarii si care accepta cu entuziasm orice fel \
+                    de provocare ce le pune la incercare creativitatea si inteligenta, luand in considerare aspecte multiple\
+                    ale realitatii.";
+                    var str2="Persoanele intolerante se simt confortabil in medii stabile, ce nu sunt supuse\
+                    schimbarii. Au tendinta de a reactiona rapid, deseori neglijand informatii relevante despre anumite situatii,\
+                    evitand argumentarea intrucat o considera inutila si chiar periculoasa.";
+                    var str3="Pe langa inclinatia catre cunoastere si acumulare a experientei, persoanele cu toleranta la \
+                    ambiguitatea sunt foarte motivate si tind catre atingerea celor mai inalte nivele atat pe plan profesional \
+                    cat si pe plan personal. Toleranta la ambiguitate reprezinta o caracteristica a maturitatii emotionale.";
+                    if (rez < 48)
+                        $("#concluzie").html(str1);
+                    else if (rez > 80)
+                        $("#concluzie").html(str2);
+                    else
+                        $("#concluzie").html(str3);
+                    
                     runEffect();
                     return false;
                 });
          
-                $( "#effect" ).hide();
+                //$( "#effect" ).hide();
+                //$( "#toggler" ).hide();
             });
         </script>
         
@@ -52,91 +73,105 @@
     
     <body>
         
-        <div class="toggler">
-            <div id="effect">
-                <h3 class="ui-widget-header ui-corner-all">Show</h3>
-                <p>
-                    Ai obtinut <input type="text" id="final" size="2" style="border: 0; color: #f6931f; font-weight: bold;" readonly="readonly" />de puncte.
-                </p>
-                <input id="btnAdd" type="button" value="oK" onclick="callback();" />
-            </div>
+        <div id="toggler" class="toggler" style="display: none">
         </div>
+        
         
         <div id="form">
             
-            <h1>Toleranta la ambiguitate</h1>
+            <div id="effect" style="display: none">
+                <h3>Rezultat</h3>
+                <p>
+                    Ai obtinut <input type="text" id="final" size="1" style="border: 0; color: #f6931f; font-weight: bold;" readonly="readonly" />de puncte.
+                </p>
+                <div id="concluzie"></div>
+                <a href="#" id="btnAdd" class="btn btn-custom" onclick="callback();">OK</a>
+                <div class="enunt"></div>
+            </div>
+            
+            <h1>Toleranta la ambiguitate</h1><br><br>
+            
+            <div class="enunt">
+                	Va rugam sa cititi cu atentie fiecare rand din declaratiile de mai jos, apoi folositi scala urmatoare pentru a nota masura in care sunteti sau nu de acord cu afirmatia respectiva.
+            </div><br>
+            <img src="./res/demo.jpg" alt="demo"><br><br>
+            <hr width=800px><br>
             
             <div class="enunt">1. Un expert care nu vine cu un raspuns definitiv probabil ca nu stie prea mult.</div>
-            <div class="ans"><input type="text" id="amount1" style="border: 0; color: #f6931f; font-weight: bold;" /></div>
+            <div class="ans"><input type="text" size="25" id="amount1" style="border: 0; color: #f6931f; font-weight: bold;"  readonly="readonly" /></div>
             <div id="slider1" class="slide"></div>
             
             <div class="enunt">2. Mi-ar placea sa traiesc intr-o tara staina pentru un timp.</div>
-            <div class="ans"><input type="text" id="amount2" style="border: 0; color: #f6931f; font-weight: bold;" /></div>
+            <div class="ans"><input type="text" size="25" id="amount2" style="border: 0; color: #f6931f; font-weight: bold;" readonly="readonly" /></div>
             <div id="slider2" class="slide"></div>
             
             <div class="enunt">3. Cu cat mai curand vom ajunge sa avem valori si idealuri asemanatoare, cu atat va fi mai bine.</div>
-            <div class="ans"><input type="text" id="amount3" style="border: 0; color: #f6931f; font-weight: bold;" /></div>
+            <div class="ans"><input type="text" size="25" id="amount3" style="border: 0; color: #f6931f; font-weight: bold;" readonly="readonly" /></div>
             <div id="slider3" class="slide"></div>
             
             <div class="enunt">4. Un bun profesor este cel care te face sa-ti pui intrebari despre felul in care privesti lucrurile.</div>
-            <div class="ans"><input type="text" id="amount4" style="border: 0; color: #f6931f; font-weight: bold;" /></div>
+            <div class="ans"><input type="text" size="25" id="amount4" style="border: 0; color: #f6931f; font-weight: bold;" readonly="readonly" /></div>
             <div id="slider4" class="slide"></div>
             
             <div class="enunt">5. Imi plac petrecerile unde ii cunosc pe ceilalti, mai mult decat cele unde cailalti imi sunt complet necunoscuti.</div>
-            <div class="ans"><input type="text" id="amount5" style="border: 0; color: #f6931f; font-weight: bold;" /></div>
+            <div class="ans"><input type="text" size="25" id="amount5" style="border: 0; color: #f6931f; font-weight: bold;" readonly="readonly" /></div>
             <div id="slider5" class="slide"></div>
             
             <div class="enunt">6. Profesorii sau supraveghetorii care imi dau teme imprecise dau o sansa pentru manifestarea initiativei si originalitatii.</div>
-            <div class="ans"><input type="text" id="amount6" style="border: 0; color: #f6931f; font-weight: bold;" /></div>
+            <div class="ans"><input type="text" size="25" id="amount6" style="border: 0; color: #f6931f; font-weight: bold;" readonly="readonly" /></div>
             <div id="slider6" class="slide"></div>
             
             <div class="enunt">7. Persoana care duce o viata egala si uniforma, cu putine intamplari si evenimente neasteptate, are de ce sa fie recunoscatoare sortii.</div>
-            <div class="ans"><input type="text" id="amount7" style="border: 0; color: #f6931f; font-weight: bold;" /></div>
+            <div class="ans"><input type="text" size="25" id="amount7" style="border: 0; color: #f6931f; font-weight: bold;" readonly="readonly" /></div>
             <div id="slider7" class="slide"></div>
             
             <div class="enunt">8. Multe din cele mai importante decizii pe care le luam se bazeaza pe informatii insuficiente.</div>
-            <div class="ans"><input type="text" id="amount8" style="border: 0; color: #f6931f; font-weight: bold;" /></div>
+            <div class="ans"><input type="text" size="25" id="amount8" style="border: 0; color: #f6931f; font-weight: bold;" readonly="readonly" /></div>
             <div id="slider8" class="slide"></div>
             
             <div class="enunt">9. Nu exista problema care sa nu poata fi rezolvata.</div>
-            <div class="ans"><input type="text" id="amount9" style="border: 0; color: #f6931f; font-weight: bold;" /></div>
+            <div class="ans"><input type="text" size="25" id="amount9" style="border: 0; color: #f6931f; font-weight: bold;" readonly="readonly" /></div>
             <div id="slider9" class="slide"></div>
             
             <div class="enunt">10. Oamenii care isi traiesc viata pe baza de program pierd probabil bucuria de a trai.</div>
-            <div class="ans"><input type="text" id="amount10" style="border: 0; color: #f6931f; font-weight: bold;" /></div>
+            <div class="ans"><input type="text" size="25" id="amount10" style="border: 0; color: #f6931f; font-weight: bold;" readonly="readonly" /></div>
             <div id="slider10" class="slide"></div>
             
             <div class="enunt">11. O slujba buna este aceea in care sti intotdeauna clar ce si cum trebuie facut.</div>
-            <div class="ans"><input type="text" id="amount11" style="border: 0; color: #f6931f; font-weight: bold;" /></div>
+            <div class="ans"><input type="text" size="25" id="amount11" style="border: 0; color: #f6931f; font-weight: bold;" readonly="readonly" /></div>
             <div id="slider11" class="slide"></div>
             
             <div class="enunt">12. E mai nostim sa dai gata o problema complicata  decat sa rezolvi una simpla.</div>
-            <div class="ans"><input type="text" id="amount12" style="border: 0; color: #f6931f; font-weight: bold;" /></div>
+            <div class="ans"><input type="text" size="25" id="amount12" style="border: 0; color: #f6931f; font-weight: bold;" readonly="readonly" /></div>
             <div id="slider12" class="slide"></div>
             
             <div class="enunt">13. Pe termen lung, este posibil sa obtii mai mult rezolvand probleme mici si simple, decat mari si complicate.</div>
-            <div class="ans"><input type="text" id="amount13" style="border: 0; color: #f6931f; font-weight: bold;" /></div>
+            <div class="ans"><input type="text" size="25" id="amount13" style="border: 0; color: #f6931f; font-weight: bold;" readonly="readonly" /></div>
             <div id="slider13" class="slide"></div>
             
             <div class="enunt">14. Adesea, cei mai interesati si stimulativi oameni sunt cei pe care nu-i deranjeaza sa fie diferiti si originali.</div>
-            <div class="ans"><input type="text" id="amount14" style="border: 0; color: #f6931f; font-weight: bold;" /></div>
+            <div class="ans"><input type="text" size="25" id="amount14" style="border: 0; color: #f6931f; font-weight: bold;" readonly="readonly" /></div>
             <div id="slider14" class="slide"></div>
             
             <div class="enunt">15. Lucrurile familiare sunt intotdeauna preferabile celor nefamiliare.</div>
-            <div class="ans"><input type="text" id="amount15" style="border: 0; color: #f6931f; font-weight: bold;" /></div>
+            <div class="ans"><input type="text" size="25" id="amount15" style="border: 0; color: #f6931f; font-weight: bold;" readonly="readonly" /></div>
             <div id="slider15" class="slide"></div>
             
             <div class="enunt">16. Oamenii care insista asupra unui raspuns cu "da" sau "nu", pur si simplu nu stiu cat de complicate sunt lucrurile in realitate.</div>
-            <div class="ans"><input type="text" id="amount16" style="border: 0; color: #f6931f; font-weight: bold;" /></div>
+            <div class="ans"><input type="text" size="25" id="amount16" style="border: 0; color: #f6931f; font-weight: bold;" readonly="readonly" /></div>
             <div id="slider16" class="slide"></div>
             
             <br>
-            <a href="#" id="button" >Vezi rezultatul.</a>
+            <div class="enunt"><a href="#" id="button" class="btn btn-custom">Vezi rezultatul</a></div>
+            <div class="enunt"></div><br><br><br>
+            <hr width=800px>
+            <div class="enunt source">Paul C. Nutt, The tolerance for ambiguity and decision making, Columbus, Ohio, The Ohio State Univ. College of business working paper series, WP 88-291, 1988.</div>
         
         </div> <!-- close form -->
         
         <script>
                 function slider(i) {
+                    var ras=["Total in dezacord","Dezacord","Oarecum dezacord","Nici acord, nici dezacord","Oarecum acord","Acord","Total de acord"];
                     $( '#slider' + i ).slider({
                         value:4,
                         min: 1,
@@ -144,9 +179,10 @@
                         step: 1,
                         slide: function( event, ui ) {
                             $( '#amount' + i ).val( ui.value );
+                            $( '#amount' + i ).val( ras[ui.value-1] );
                         }
                     });
-                    $( '#amount' + i ).val( $( '#slider' + i ).slider( "value" ) );
+                    $( '#amount' + i ).val( ras[$( '#slider' + i ).slider( "value" )-1] );
                 }
                     
                 for (var i=1; i<=16; i++)
